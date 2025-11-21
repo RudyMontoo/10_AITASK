@@ -11,10 +11,14 @@ class PaintingGrid:
     def __init__(self, size=12):
         self.size = size
         self.agents = {}
-        self.painted = {}  # cell -> agent_id
+        self.painted = {}
+        self.obstacles = set()
         
     def add_agent(self, agent_id, pos):
         self.agents[agent_id] = pos
+    
+    def add_obstacles(self, obstacle_list):
+        self.obstacles = set(obstacle_list)
     
     def move_agent(self, agent_id, pos):
         if self.is_valid(pos):
@@ -24,7 +28,8 @@ class PaintingGrid:
     
     def is_valid(self, pos):
         x, y = pos
-        return 0 <= x < self.size and 0 <= y < self.size
+        return (0 <= x < self.size and 0 <= y < self.size and 
+                pos not in self.obstacles)
     
     def paint_cell(self, pos, agent_id):
         """Paint cell with agent's color"""
@@ -59,19 +64,23 @@ class PaintingRobot:
         self.assigned_region = region
 
 # ============= REGION ALLOCATION =============
-def allocate_regions(grid_size, num_robots=2):
-    """Divide grid into non-overlapping regions"""
+def allocate_regions(grid_size, num_robots=4):
+    """Divide grid into non-overlapping regions (quadrants for 4 robots)"""
     regions = [set() for _ in range(num_robots)]
     
-    # Vertical split for 2 robots
-    mid = grid_size // 2
+    mid_x = grid_size // 2
+    mid_y = grid_size // 2
     
     for x in range(grid_size):
         for y in range(grid_size):
-            if x < mid:
+            if x < mid_x and y < mid_y:
                 regions[0].add((x, y))
-            else:
+            elif x >= mid_x and y < mid_y:
                 regions[1].add((x, y))
+            elif x < mid_x and y >= mid_y:
+                regions[2].add((x, y))
+            else:
+                regions[3].add((x, y))
     
     return regions
 
@@ -109,42 +118,53 @@ def visualize_painting(grid, robots, step, total_cells):
         ax1.axvline(i, color='gray', linewidth=0.5)
         ax1.axhline(i, color='gray', linewidth=0.5)
     
-    # Draw painted cells
-    colors = ['blue', 'red', 'green', 'orange']
+    # Draw obstacles (black)
+    for x, y in grid.obstacles:
+        rect = patches.Rectangle((x, y), 1, 1, facecolor='black', alpha=0.8)
+        ax1.add_patch(rect)
+    
+    # Draw painted cells with vibrant colors
+    colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
     for pos, agent_id in grid.painted.items():
         x, y = pos
         color = colors[(agent_id - 1) % len(colors)]
-        rect = patches.Rectangle((x, y), 1, 1, facecolor=color, alpha=0.6)
+        rect = patches.Rectangle((x, y), 1, 1, facecolor=color, alpha=0.7, edgecolor='white', linewidth=0.5)
         ax1.add_patch(rect)
     
-    # Draw robots
-    for idx, robot in enumerate(robots):
+    # Draw robots with bold colors
+    for robot in robots:
         x, y = robot.pos
-        color = colors[idx % len(colors)]
-        circle = patches.Circle((x + 0.5, y + 0.5), 0.35, 
-                               color=color, alpha=0.9, zorder=10, edgecolor='white', linewidth=2)
+        color = colors[(robot.id - 1) % len(colors)]
+        circle = patches.Circle((x + 0.5, y + 0.5), 0.4, 
+                               color=color, alpha=1.0, zorder=10, edgecolor='white', linewidth=3)
         ax1.add_patch(circle)
         ax1.text(x + 0.5, y + 0.5, str(robot.id), ha='center', va='center', 
-                color='white', fontweight='bold', zorder=11)
+                color='white', fontweight='bold', fontsize=12, zorder=11)
     
     painted_count = len(grid.painted)
     coverage = (painted_count / total_cells) * 100
     ax1.set_title(f'Step {step} | Painted: {painted_count}/{total_cells} ({coverage:.1f}%)')
     
-    # Pie chart showing coverage by each robot
+    # Bar chart showing coverage by each robot
     ax2 = plt.subplot(1, 2, 2)
     
     robot_counts = [len(robot.painted_cells) for robot in robots]
-    robot_labels = [f'Robot {robot.id}\n{count} cells' for robot, count in zip(robots, robot_counts)]
-    colors_pie = [colors[i % len(colors)] for i in range(len(robots))]
+    robot_ids = [robot.id for robot in robots]
+    colors_bar = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
     
-    if sum(robot_counts) > 0:
-        wedges, texts, autotexts = ax2.pie(robot_counts, labels=robot_labels, colors=colors_pie,
-                                           autopct='%1.1f%%', startangle=90, textprops={'fontsize': 12, 'weight': 'bold'})
-        for autotext in autotexts:
-            autotext.set_color('white')
+    bars = ax2.bar(robot_ids, robot_counts, color=colors_bar[:len(robots)], 
+                   alpha=0.8, edgecolor='white', linewidth=2)
     
-    ax2.set_title('Paint Coverage by Robot', fontsize=14)
+    for bar, count in zip(bars, robot_counts):
+        height = bar.get_height()
+        ax2.text(bar.get_x() + bar.get_width()/2., height,
+                f'{count}', ha='center', va='bottom', fontweight='bold', fontsize=12)
+    
+    ax2.set_xlabel('Robot ID', fontsize=12, fontweight='bold')
+    ax2.set_ylabel('Cells Painted', fontsize=12, fontweight='bold')
+    ax2.set_title('Paint Coverage by Robot', fontsize=14, fontweight='bold')
+    ax2.set_xticks(robot_ids)
+    ax2.grid(axis='y', alpha=0.3)
     
     plt.tight_layout()
     plt.pause(0.05)
@@ -155,24 +175,44 @@ def run_painting():
     print("=" * 50)
     
     # Setup
-    GRID_SIZE = 12
+    GRID_SIZE = 16
     
     grid = PaintingGrid(GRID_SIZE)
     
-    # Allocate regions
-    regions = allocate_regions(GRID_SIZE, 2)
+    # Add obstacles (walls in the middle)
+    obstacles = []
+    mid = GRID_SIZE // 2
+    for i in range(4, 12):
+        if i != mid:
+            obstacles.append((mid - 1, i))
+            obstacles.append((mid, i))
     
-    # Initialize robots at region boundaries
+    grid.add_obstacles(obstacles)
+    
+    # Allocate regions (4 quadrants)
+    regions = allocate_regions(GRID_SIZE, 4)
+    
+    # Remove obstacles from regions
+    for region in regions:
+        region -= grid.obstacles
+    
+    # Initialize 4 robots at corners
     robot1 = PaintingRobot(1, (0, 0))
-    robot2 = PaintingRobot(2, (GRID_SIZE // 2, 0))
+    robot2 = PaintingRobot(2, (GRID_SIZE - 1, 0))
+    robot3 = PaintingRobot(3, (0, GRID_SIZE - 1))
+    robot4 = PaintingRobot(4, (GRID_SIZE - 1, GRID_SIZE - 1))
     
     robot1.assign_region(regions[0])
     robot2.assign_region(regions[1])
+    robot3.assign_region(regions[2])
+    robot4.assign_region(regions[3])
     
     grid.add_agent(1, robot1.pos)
     grid.add_agent(2, robot2.pos)
+    grid.add_agent(3, robot3.pos)
+    grid.add_agent(4, robot4.pos)
     
-    robots = [robot1, robot2]
+    robots = [robot1, robot2, robot3, robot4]
     
     total_cells = GRID_SIZE * GRID_SIZE
     
@@ -246,12 +286,19 @@ def run_painting():
             if robot.id != other_robot.id:
                 overlaps += len(robot.painted_cells & other_robot.painted_cells)
     
+    paintable_cells = total_cells - len(grid.obstacles)
+    coverage = (painted_count / paintable_cells) * 100
+    
     print(f"\n{'='*50}")
     print(f"RESULTS:")
     print(f"  Total Time: {steps} steps")
     print(f"  Total Cells: {total_cells}")
-    print(f"  Robot 1: {len(robot1.painted_cells)} cells ({len(robot1.painted_cells)/total_cells*100:.1f}%)")
-    print(f"  Robot 2: {len(robot2.painted_cells)} cells ({len(robot2.painted_cells)/total_cells*100:.1f}%)")
+    print(f"  Obstacles: {len(grid.obstacles)}")
+    print(f"  Paintable Cells: {paintable_cells}")
+    print(f"  Robot 1: {len(robot1.painted_cells)} cells")
+    print(f"  Robot 2: {len(robot2.painted_cells)} cells")
+    print(f"  Robot 3: {len(robot3.painted_cells)} cells")
+    print(f"  Robot 4: {len(robot4.painted_cells)} cells")
     print(f"  Coverage: {coverage:.1f}%")
     print(f"  Efficiency: {efficiency:.2f} cells/100 steps")
     print(f"  No Overlaps: {'✓' if overlaps == 0 else '✗ (' + str(overlaps) + ')'}")
