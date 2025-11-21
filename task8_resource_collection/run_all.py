@@ -121,11 +121,15 @@ grid.add_resources(resources)
 
 agent1 = CollectorAgent(1, (0, 0))
 agent2 = CollectorAgent(2, (GRID_SIZE-1, GRID_SIZE-1))
+agent3 = CollectorAgent(3, (0, GRID_SIZE-1))
+agent4 = CollectorAgent(4, (GRID_SIZE-1, 0))
 
 grid.add_agent(1, agent1.pos)
 grid.add_agent(2, agent2.pos)
+grid.add_agent(3, agent3.pos)
+grid.add_agent(4, agent4.pos)
 
-agents = [agent1, agent2]
+agents = [agent1, agent2, agent3, agent4]
 
 steps = 0
 max_steps = 300
@@ -135,7 +139,8 @@ while steps < max_steps and len(grid.resources) > 0:
         if not agent.path or agent.target not in grid.resources:
             agent.target = agent.select_next_resource(grid.resources)
             if agent.target:
-                path = astar(agent.pos, agent.target, grid, {agent2.pos if agent.id == 1 else agent1.pos})
+                other_positions = {a.pos for a in agents if a.id != agent.id}
+                path = astar(agent.pos, agent.target, grid, other_positions)
                 if path:
                     agent.path = path[1:]
         
@@ -152,3 +157,5 @@ print(f"Total Steps: {steps}")
 print(f"Resources Collected: {total_collected}/{NUM_RESOURCES}")
 print(f"Agent 1: {len(agent1.collected)} resources")
 print(f"Agent 2: {len(agent2.collected)} resources")
+print(f"Agent 3: {len(agent3.collected)} resources")
+print(f"Agent 4: {len(agent4.collected)} resources")

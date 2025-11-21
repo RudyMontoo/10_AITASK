@@ -1,7 +1,8 @@
 # Resource Collection Team Simulation
 
 ## 📋 Overview
-A multi-agent cooperative system where two collector agents work together to gather resources scattered across a map. The agents use a shared task queue and distributed decision logic to efficiently collect all resources.
+A multi-agent cooperative system where two collector agents work together to gather resources scattered across a map. The agents use a shared task queue and 
+distributed decision logic to efficiently collect all resources.
 
 ## 🎯 Problem Statement
 Design two collector agents that:
