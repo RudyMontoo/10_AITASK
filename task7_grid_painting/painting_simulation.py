@@ -142,29 +142,37 @@ def visualize_painting(grid, robots, step, total_cells):
                 color='white', fontweight='bold', fontsize=12, zorder=11)
     
     painted_count = len(grid.painted)
-    coverage = (painted_count / total_cells) * 100
-    ax1.set_title(f'Step {step} | Painted: {painted_count}/{total_cells} ({coverage:.1f}%)')
+    paintable_cells = total_cells - len(grid.obstacles)
+    coverage = (painted_count / paintable_cells) * 100
+    ax1.set_title(f'Step {step} | Painted: {painted_count}/{paintable_cells} ({coverage:.1f}%)')
     
-    # Bar chart showing coverage by each robot
+    # Dynamic bar chart showing coverage by each robot (grows from 0)
     ax2 = plt.subplot(1, 2, 2)
+    ax2.clear()
     
     robot_counts = [len(robot.painted_cells) for robot in robots]
     robot_ids = [robot.id for robot in robots]
     colors_bar = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
     
+    # Set fixed y-axis limit so bars grow upward
+    max_cells_per_robot = paintable_cells // len(robots) + 20
+    ax2.set_ylim(0, max_cells_per_robot)
+    
     bars = ax2.bar(robot_ids, robot_counts, color=colors_bar[:len(robots)], 
                    alpha=0.8, edgecolor='white', linewidth=2)
     
+    # Add count labels on top of bars
     for bar, count in zip(bars, robot_counts):
         height = bar.get_height()
-        ax2.text(bar.get_x() + bar.get_width()/2., height,
-                f'{count}', ha='center', va='bottom', fontweight='bold', fontsize=12)
+        if height > 0:
+            ax2.text(bar.get_x() + bar.get_width()/2., height + 1,
+                    f'{count}', ha='center', va='bottom', fontweight='bold', fontsize=12)
     
     ax2.set_xlabel('Robot ID', fontsize=12, fontweight='bold')
     ax2.set_ylabel('Cells Painted', fontsize=12, fontweight='bold')
-    ax2.set_title('Paint Coverage by Robot', fontsize=14, fontweight='bold')
+    ax2.set_title('Paint Coverage by Robot (Live)', fontsize=14, fontweight='bold')
     ax2.set_xticks(robot_ids)
-    ax2.grid(axis='y', alpha=0.3)
+    ax2.grid(axis='y', alpha=0.3, linestyle='--')
     
     plt.tight_layout()
     plt.pause(0.05)
@@ -217,8 +225,12 @@ def run_painting():
     total_cells = GRID_SIZE * GRID_SIZE
     
     print(f"Grid size: {GRID_SIZE}x{GRID_SIZE} ({total_cells} cells)")
+    print(f"Obstacles: {len(obstacles)} cells")
+    print(f"Paintable cells: {total_cells - len(obstacles)}")
     print(f"Robot 1 region: {len(regions[0])} cells")
     print(f"Robot 2 region: {len(regions[1])} cells")
+    print(f"Robot 3 region: {len(regions[2])} cells")
+    print(f"Robot 4 region: {len(regions[3])} cells")
     
     # Simulation
     plt.figure(figsize=(12, 6))
