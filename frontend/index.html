@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Agent Simulations Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <header>
+            <h1>🤖 Multi-Agent Cooperative Systems</h1>
+            <p>Interactive Simulations Dashboard</p>
+        </header>
+        
+        <div class="task-grid">
+            <div class="task-card" data-task="task1">
+                <div class="task-icon">🗺️</div>
+                <h3>Dual Maze Navigator</h3>
+                <p>4 agents collect keys in a maze cooperatively</p>
+                <button class="btn-launch" onclick="openTask('task1')">Launch</button>
+            </div>
+            
+            <div class="task-card" data-task="task2">
+                <div class="task-icon">🧹</div>
+                <h3>Cleaning Simulation</h3>
+                <p>4 agents cooperatively clean a grid</p>
+                <button class="btn-launch" onclick="openTask('task2')">Launch</button>
+            </div>
+            
+            <div class="task-card" data-task="task3">
+                <div class="task-icon">🗺️</div>
+                <h3>Path Planning (A*)</h3>
+                <p>4 agents navigate with collision avoidance</p>
+                <button class="btn-launch" onclick="openTask('task3')">Launch</button>
+            </div>
+            
+            <div class="task-card" data-task="task4">
+                <div class="task-icon">📦</div>
+                <h3>Warehouse Pickup</h3>
+                <p>4 robots collect packages efficiently</p>
+                <button class="btn-launch" onclick="openTask('task4')">Launch</button>
+            </div>
+            
+            <div class="task-card" data-task="task5">
+                <div class="task-icon">🚑</div>
+                <h3>Rescue Bots</h3>
+                <p>4 bots rescue victims from disaster zones</p>
+                <button class="btn-launch" onclick="openTask('task5')">Launch</button>
+            </div>
+            
+            <div class="task-card" data-task="task6">
+                <div class="task-icon">🚁</div>
+                <h3>Drone Delivery</h3>
+                <p>3 drones deliver packages to destinations</p>
+                <button class="btn-launch" onclick="openTask('task6')">Launch</button>
+            </div>
+            
+            <div class="task-card" data-task="task7">
+                <div class="task-icon">🎨</div>
+                <h3>Grid Painting</h3>
+                <p>4 robots paint a grid using DFS</p>
+                <button class="btn-launch" onclick="openTask('task7')">Launch</button>
+            </div>
+            
+            <div class="task-card" data-task="task8">
+                <div class="task-icon">💎</div>
+                <h3>Resource Collection</h3>
+                <p>4 agents collect scattered resources</p>
+                <button class="btn-launch" onclick="openTask('task8')">Launch</button>
+            </div>
+            
+            <div class="task-card" data-task="task9">
+                <div class="task-icon">🚒</div>
+                <h3>Firefighters</h3>
+                <p>4 firefighters extinguish spreading fires</p>
+                <button class="btn-launch" onclick="openTask('task9')">Launch</button>
+            </div>
+            
+            <div class="task-card" data-task="task10">
+                <div class="task-icon">🔍</div>
+                <h3>Map Exploration</h3>
+                <p>4 agents explore unknown territory</p>
+                <button class="btn-launch" onclick="openTask('task10')">Launch</button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Built with FastAPI + WebSockets | Multi-Agent AI Systems</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

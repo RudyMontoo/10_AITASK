@@ -1,0 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-width: 800px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.info-panel {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat .label {
+    display: block;
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.stat span:last-child {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #66a6ff;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary { background: #28a745; color: white; }
+.btn-secondary { background: #ffc107; color: white; }
+.btn-danger { background: #dc3545; color: white; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(20, 28px);
+    gap: 2px;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: #e9ecef;
+    border-radius: 10px;
+}
+
+.cell {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.unexplored { background: #263238; }
+.explored { background: #b2ebf2; }
+.obstacle { background: #546e7a; }
+.explorer1 { background: #ff6b6b; box-shadow: 0 0 10px rgba(255,107,107,0.5); }
+.explorer2 { background: #4ecdc4; box-shadow: 0 0 10px rgba(78,205,196,0.5); }
+.explorer3 { background: #ffe66d; box-shadow: 0 0 10px rgba(255,230,109,0.5); }
+.explorer4 { background: #a8e6cf; box-shadow: 0 0 10px rgba(168,230,207,0.5); }
+
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85em;
+}
+
+.legend-item .box {
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+}

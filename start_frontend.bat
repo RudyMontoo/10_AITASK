@@ -1,0 +1,3 @@
+@echo off
+echo Opening Frontend Dashboard...
+start frontend/index.html

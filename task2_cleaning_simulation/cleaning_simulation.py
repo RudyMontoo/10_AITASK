@@ -234,7 +234,7 @@ def run_simulation():
                     elif pos == bot2.pos:
                         row += "2 "
                     elif pos in cleaned:
-                        row += "✓ "
+                        row += "C "
                     elif pos in remaining_dirty:
                         row += "D "
                     else:

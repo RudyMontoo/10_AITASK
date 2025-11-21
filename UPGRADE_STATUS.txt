@@ -1,0 +1,30 @@
+UPGRADE TO 4 AGENTS - STATUS
+=============================
+
+✅ COMPLETED:
+- Task 7: Grid Painting (4 robots + obstacles + dynamic bar chart)
+- Task 8: Resource Collection (4 agents)
+- Task 2: Cleaning Crew (4 bots) - JUST COMPLETED
+
+🔄 IN PROGRESS:
+- None
+
+📋 REMAINING TO UPGRADE:
+- Task 3: Path Planners (2 → 4 agents)
+- Task 5: Rescue Bots (2 → 4 bots)
+- Task 9: Firefighters (2 → 4 agents)
+- Task 10: Map Exploration (2 → 4 agents)
+
+⏭️ OPTIONAL (already have 2):
+- Task 4: Warehouse (could upgrade to 4)
+- Task 6: Drone Delivery (could upgrade to 4)
+
+CHANGES MADE TO TASK 2:
+- Added divide_tasks_multi() function for 4 bots
+- Initialize 4 bots at corners: (0,0), (9,9), (0,9), (9,0)
+- Updated main loop to handle all bots
+- Updated grid printing for 4 bots
+- Updated final results to show all 4 bots
+- Fixed Unicode encoding issue
+
+NEXT: Task 3, 5, 9, 10

@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.dashboard {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+header h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+header p {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+.task-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.task-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+.task-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+.task-icon {
+    font-size: 4em;
+    margin-bottom: 15px;
+}
+
+.task-card h3 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.task-card p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.btn-launch {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.btn-launch:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-launch:active {
+    transform: scale(0.98);
+}
+
+footer {
+    text-align: center;
+    color: white;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+footer p {
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+    
+    .task-grid {
+        grid-template-columns: 1fr;
+    }
+}
