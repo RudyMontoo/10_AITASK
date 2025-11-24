@@ -19,7 +19,14 @@ body {
     border-radius: 20px;
     padding: 30px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    max-width: 800px;
+    max-width: 900px;
+    position: relative;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 h1 {
@@ -27,6 +34,7 @@ h1 {
     color: #333;
     margin-bottom: 20px;
     font-size: 2em;
+    padding-right: 140px;
 }
 
 .info-panel {
@@ -69,95 +77,140 @@ h1 {
     border-radius: 8px;
     font-size: 1em;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .btn-primary {
-    background: #28a745;
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
     color: white;
 }
 
 .btn-primary:hover {
-    background: #218838;
+    background: linear-gradient(135deg, #20c997 0%, #28a745 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40,167,69,0.4);
 }
 
 .btn-secondary {
-    background: #ffc107;
+    background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%);
     color: white;
 }
 
 .btn-secondary:hover {
-    background: #e0a800;
+    background: linear-gradient(135deg, #ffb300 0%, #ffc107 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255,193,7,0.4);
 }
 
 .btn-danger {
-    background: #dc3545;
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
     color: white;
 }
 
 .btn-danger:hover {
-    background: #c82333;
+    background: linear-gradient(135deg, #c82333 0%, #dc3545 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220,53,69,0.4);
 }
 
 .btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    transform: none !important;
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(0px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(15, 35px);
-    gap: 2px;
+    display: grid !important;
+    grid-template-columns: repeat(15, 35px) !important;
+    gap: 3px;
     justify-content: center;
     margin-bottom: 20px;
-    padding: 10px;
-    background: #e9ecef;
-    border-radius: 10px;
+    padding: 15px;
+    background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+    border-radius: 15px;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+    min-height: 580px;
+    visibility: visible !important;
 }
 
 .cell {
-    width: 35px;
-    height: 35px;
-    border-radius: 4px;
-    transition: all 0.3s;
+    width: 35px !important;
+    height: 35px !important;
+    border-radius: 6px;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     position: relative;
+    display: block !important;
 }
 
 .empty {
-    background: #f8f9fa;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid #e9ecef;
 }
 
 .obstacle {
-    background: #343a40;
+    background: linear-gradient(135deg, #343a40 0%, #212529 100%);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
 }
 
 .path {
-    background: #cfe2ff;
+    background: linear-gradient(135deg, #cfe2ff 0%, #b6d4fe 100%);
+    animation: pathReveal 0.3s ease-out;
+}
+
+@keyframes pathReveal {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .target {
-    background: #ffd700;
-    box-shadow: 0 0 15px rgba(255,215,0,0.6);
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    box-shadow: 0 0 25px rgba(255,215,0,0.8), inset 0 0 10px rgba(255,255,255,0.5);
+    animation: targetPulse 2s ease-in-out infinite;
+}
+
+@keyframes targetPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(255,215,0,0.8); }
+    50% { transform: scale(1.15); box-shadow: 0 0 40px rgba(255,215,0,1); }
 }
 
 .agent1 {
-    background: #ff6b6b;
-    box-shadow: 0 0 10px rgba(255,107,107,0.5);
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+    box-shadow: 0 0 20px rgba(255,107,107,0.9), inset 0 0 10px rgba(255,255,255,0.4);
+    animation: agentMove 0.6s ease-in-out;
+    border: 2px solid #ff5252;
 }
 
 .agent2 {
-    background: #4ecdc4;
-    box-shadow: 0 0 10px rgba(78,205,196,0.5);
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a3a0 100%);
+    box-shadow: 0 0 20px rgba(78,205,196,0.9), inset 0 0 10px rgba(255,255,255,0.4);
+    animation: agentMove 0.6s ease-in-out;
+    border: 2px solid #44a3a0;
 }
 
 .agent3 {
-    background: #ffe66d;
-    box-shadow: 0 0 10px rgba(255,230,109,0.5);
+    background: linear-gradient(135deg, #ffe66d 0%, #ffd93d 100%);
+    box-shadow: 0 0 20px rgba(255,230,109,0.9), inset 0 0 10px rgba(255,255,255,0.4);
+    animation: agentMove 0.6s ease-in-out;
+    border: 2px solid #ffd93d;
 }
 
 .agent4 {
-    background: #a8e6cf;
-    box-shadow: 0 0 10px rgba(168,230,207,0.5);
+    background: linear-gradient(135deg, #a8e6cf 0%, #88d4ab 100%);
+    box-shadow: 0 0 20px rgba(168,230,207,0.9), inset 0 0 10px rgba(255,255,255,0.4);
+    animation: agentMove 0.6s ease-in-out;
+    border: 2px solid #88d4ab;
+}
+
+@keyframes agentMove {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.08) rotate(-3deg); }
+    75% { transform: scale(1.08) rotate(3deg); }
 }
 
 .legend {
@@ -203,9 +256,41 @@ input[type="range"] {
     font-size: 0.9em;
     transition: all 0.3s;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    z-index: 1000;
 }
 
 .home-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.progress-container {
+    width: 100%;
+    height: 30px;
+    background: #e9ecef;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+    border-radius: 15px;
+    transition: width 0.5s ease-out;
+    width: 0%;
+    box-shadow: 0 0 20px rgba(240,147,251,0.5);
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    color: #333;
+    font-size: 0.9em;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.8);
 }

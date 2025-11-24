@@ -117,6 +117,10 @@ function updateStats() {
     const explored = grid.flat().filter(c => c === 1).length;
     const percentage = Math.round((explored / total) * 100);
     document.getElementById('explored').textContent = percentage + '%';
+    
+    // Update progress bar
+    document.getElementById('progressBar').style.width = percentage + '%';
+    document.getElementById('progressText').textContent = percentage + '% explored';
 }
 
 function start() {

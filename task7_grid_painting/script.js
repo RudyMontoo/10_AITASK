@@ -122,6 +122,10 @@ function updateStats() {
     const painted = grid.flat().filter(c => c === 1).length;
     const percentage = Math.round((painted / total) * 100);
     document.getElementById('painted').textContent = percentage + '%';
+    
+    // Update progress bar
+    document.getElementById('progressBar').style.width = percentage + '%';
+    document.getElementById('progressText').textContent = percentage + '%';
 }
 
 function start() {

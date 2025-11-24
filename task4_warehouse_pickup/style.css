@@ -34,6 +34,7 @@ h1 {
     color: #333;
     margin-bottom: 20px;
     font-size: 2em;
+    padding-right: 140px;
 }
 
 .info-panel {
@@ -259,6 +260,7 @@ label {
     font-size: 0.9em;
     transition: all 0.3s;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    z-index: 1000;
 }
 
 .home-btn:hover {

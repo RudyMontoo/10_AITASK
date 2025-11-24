@@ -24,12 +24,34 @@ header {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     backdrop-filter: blur(10px);
+    animation: headerFadeIn 0.8s ease-out;
+}
+
+@keyframes headerFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 header h1 {
     font-size: 3em;
     margin-bottom: 10px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    animation: titlePulse 2s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+    0%, 100% {
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    50% {
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.3);
+    }
 }
 
 header p {
@@ -45,56 +67,96 @@ header p {
 }
 
 .task-card {
-    background: white;
-    border-radius: 15px;
-    padding: 30px;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    cursor: pointer;
+    animation: cardFadeIn 0.6s ease-out backwards;
 }
 
-.task-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+.task-card:nth-child(1) { animation-delay: 0.1s; }
+.task-card:nth-child(2) { animation-delay: 0.2s; }
+.task-card:nth-child(3) { animation-delay: 0.3s; }
+.task-card:nth-child(4) { animation-delay: 0.4s; }
+.task-card:nth-child(5) { animation-delay: 0.5s; }
+.task-card:nth-child(6) { animation-delay: 0.6s; }
+.task-card:nth-child(7) { animation-delay: 0.7s; }
+.task-card:nth-child(8) { animation-delay: 0.8s; }
+.task-card:nth-child(9) { animation-delay: 0.9s; }
+.task-card:nth-child(10) { animation-delay: 1s; }
+
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.task-card {
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.task-card .card-header {
+    align-items: center;
+    padding: 0;
+}
+
+.task-card .card-footer {
+    justify-content: center;
+    padding-top: 0;
+    border-top: none;
+}
+
+.task-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+    transition: left 0.5s ease;
+    z-index: 0;
+}
+
+.task-card:hover::before {
+    left: 100%;
+}
+
+.task-card > * {
+    position: relative;
+    z-index: 1;
 }
 
 .task-icon {
-    font-size: 4em;
-    margin-bottom: 15px;
+    font-size: 3.5em;
+    margin-bottom: 0.75rem;
+    transition: all 0.3s ease;
+    display: inline-block;
 }
 
-.task-card h3 {
-    color: #333;
-    margin-bottom: 10px;
-    font-size: 1.5em;
+.task-card:hover .task-icon {
+    transform: scale(1.15) rotate(8deg);
+    filter: drop-shadow(0 5px 15px rgba(102, 126, 234, 0.4));
 }
 
-.task-card p {
-    color: #666;
-    margin-bottom: 20px;
-    line-height: 1.6;
+.task-card .card-title {
+    transition: color 0.3s ease;
+}
+
+.task-card:hover .card-title {
+    color: hsl(var(--primary));
+}
+
+.task-card .card-description {
+    transition: color 0.3s ease;
 }
 
 .btn-launch {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 25px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-weight: bold;
-}
-
-.btn-launch:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-}
-
-.btn-launch:active {
-    transform: scale(0.98);
+    min-width: 140px;
 }
 
 footer {
@@ -104,6 +166,18 @@ footer {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     backdrop-filter: blur(10px);
+    animation: footerFadeIn 1s ease-out 1.2s backwards;
+}
+
+@keyframes footerFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 footer p {

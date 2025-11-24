@@ -151,6 +151,9 @@ function moveAgents() {
 
 function updateStats() {
     document.getElementById('steps').textContent = steps;
+    const progress = Math.min((steps / 50) * 100, 100);
+    document.getElementById('progressBar').style.width = progress + '%';
+    document.getElementById('progressText').textContent = Math.round(progress) + '%';
 }
 
 function start() {
