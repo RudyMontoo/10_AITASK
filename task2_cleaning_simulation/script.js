@@ -116,6 +116,10 @@ function updateStats() {
     const cleanedCells = grid.flat().filter(c => c === 0).length;
     const percentage = Math.round((cleanedCells / totalCells) * 100);
     document.getElementById('cleaned').textContent = percentage + '%';
+    
+    // Update progress bar
+    document.getElementById('progressBar').style.width = percentage + '%';
+    document.getElementById('progressText').textContent = percentage + '%';
 }
 
 function start() {

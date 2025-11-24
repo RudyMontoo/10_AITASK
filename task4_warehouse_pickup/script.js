@@ -42,7 +42,13 @@ function initGrid() {
 }
 
 function renderGrid() {
+    if (!gridElement) {
+        console.error('Grid element not found!');
+        return;
+    }
+    
     gridElement.innerHTML = '';
+    console.log('Rendering grid with', GRID_SIZE, 'x', GRID_SIZE, 'cells');
     
     for (let row = 0; row < GRID_SIZE; row++) {
         for (let col = 0; col < GRID_SIZE; col++) {
@@ -65,6 +71,8 @@ function renderGrid() {
             gridElement.appendChild(cell);
         }
     }
+    
+    console.log('Grid rendered with', gridElement.children.length, 'cells');
 }
 
 function moveRobots() {

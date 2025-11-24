@@ -1,0 +1,154 @@
+/* Universal Enhancements for All Tasks */
+
+/* Smooth fade-in for container */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Pulse animation for targets/collectibles */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px currentColor;
+    }
+    50% {
+        transform: scale(1.15);
+        box-shadow: 0 0 35px currentColor;
+    }
+}
+
+/* Glow animation for goals */
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 25px currentColor;
+    }
+    50% {
+        box-shadow: 0 0 45px currentColor, 0 0 65px currentColor;
+    }
+}
+
+/* Agent movement animation */
+@keyframes agentMove {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+    }
+    25% {
+        transform: scale(1.08) rotate(-3deg);
+    }
+    75% {
+        transform: scale(1.08) rotate(3deg);
+    }
+}
+
+/* Sparkle effect */
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1) rotate(180deg);
+    }
+}
+
+/* Collection effect */
+@keyframes collect {
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Progress bar fill */
+@keyframes progressFill {
+    from {
+        width: 0%;
+    }
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/* Universal Progress Bar Styles */
+.progress-container {
+    width: 100%;
+    height: 30px;
+    background: #e9ecef;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--progress-color-1, #667eea), var(--progress-color-2, #764ba2));
+    border-radius: 15px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+    box-shadow: 0 0 20px var(--progress-color-1, #667eea);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    color: #333;
+    font-size: 0.9em;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+    z-index: 1;
+}
+
+/* Enhanced cell hover */
+.cell:hover {
+    transform: scale(1.1);
+    z-index: 10;
+}
+
+/* Trail effect */
+.trail {
+    background: rgba(108,117,125,0.15);
+    border: 1px dashed rgba(108,117,125,0.25);
+    animation: fadeOut 2s ease-out forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
