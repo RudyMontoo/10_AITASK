@@ -125,6 +125,11 @@ function moveTowards(robot, targetX, targetY) {
 function updateStats() {
     document.getElementById('steps').textContent = steps;
     document.getElementById('collected').textContent = `${collected}/${packages.length}`;
+    
+    // Update progress bar
+    const progress = (collected / packages.length) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+    document.getElementById('progressText').textContent = Math.round(progress) + '%';
 }
 
 function start() {
